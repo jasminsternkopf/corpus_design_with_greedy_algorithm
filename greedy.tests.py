@@ -64,6 +64,16 @@ class UnitTests(unittest.TestCase):
 
     self.assertEqual(0, res)
 
+  # def test_kullback_leiber_dist_1_missing_one_key(self):
+  #   dist_1 = {("Hallo", "h"): 1 / 7, ("du", "d"): 3 / 7,
+  #             ("und", "u"): 3 / 7}
+  #   dist_2 = {("Hallo", "h"): 0.2, ("du", "d"): 0.3, ("und", "u"): 0.4, ("Bye", "b"): 0.1}
+  #   res = kullback_leibler_div(dist_1, dist_2)
+  #   right_div = 1 / 7 * np.log((1 / 7) / 0.2) + 3 / 7 * \
+  #       np.log((3 / 7) / 0.3) + 3 / 7 * np.log((3 / 7) / 0.4)
+
+  #   self.assertAlmostEqual(right_div, res)
+
   # endregion
 
   # region greedy

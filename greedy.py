@@ -1,7 +1,11 @@
 from collections import Counter
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, TypeVar
 
 import numpy as np
+from scipy.stats import entropy
+
+_T1 = TypeVar("_T1")
+_T2 = TypeVar("_T2")
 
 
 def greedy(target_dist: Dict[Tuple[str, str], float], selection_list: List[List[Tuple[str, str]]], max_iter: int) -> List[List[Tuple[str, str]]]:
@@ -37,12 +41,9 @@ def get_divergence_for_sentence(sentence, current_cover, target_dist) -> float:
 def kullback_leibler_div(dist_1: Dict[Tuple[str, str], float], dist_2: Dict[Tuple[str, str], float]) -> float:
   for value in dist_2.values():
     assert value > 0
-  unequal_zero_keys = [key for key in dist_1.keys() if dist_1[key] > 0]
-  if unequal_zero_keys == []:
-    return float('inf')
-  divergence = [dist_1[key] * (np.log(dist_1[key]) - np.log(dist_2[key]))
-                for key in unequal_zero_keys]
-  return sum(divergence)
+  values_1 = list(dist_1.values())
+  values_2 = list(dist_2.values())
+  return entropy(values_1, values_2)
 
 
 def get_distribution(sentence_list: List[List[Tuple[str, str]]], target_dist: Dict[Tuple[str, str], float]) -> Dict[Tuple[str, str], float]:
